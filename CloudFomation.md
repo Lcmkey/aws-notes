@@ -4,7 +4,7 @@
 
 Solving an error when issuing a delete-stack (or any other related) command on AWS Cloud Formation.
 
-`The Problem`
+### The Problem
 
 Ran into this issue today whilst trying to delete a CFN stack while testing some architectures:
 
@@ -12,7 +12,7 @@ Basically the `IAM role` that `CFN` needs to assume (to do anything to the stack
 
 The problem with this is now you have a defined stack that cannot be deleted, updated or redeployed.
 
-`The Solution`
+### The Solution
 
 tldr; You need to `recreate` the role with the exact name as the error indicates and allow Cloud Formation access to the resources associated with the stack.
 
@@ -46,11 +46,11 @@ And then attach the Admin policy ARN:
 
     $ aws iam attach-role-policy --role-name PipelineStack-automaticawsdbshutdowncdkpipelineDep-18Y7YJVAYWPIS --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
 
-`The Result`
+### The Result
 
 And trying to delete the stack again…
 
-`Clean Up!`
+### Clean Up!
 
 We now have a rogue admin IAM role lying around. So let’s nuke it.
 
